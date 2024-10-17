@@ -1,0 +1,69 @@
+[gd_scene load_steps=7 format=3 uid="uid://71pgd0wej4s5"]
+
+[ext_resource type="Script" path="res://bomb.gd" id="1_47wqr"]
+[ext_resource type="Texture2D" uid="uid://d2fc0lb3gjg18" path="res://assets/red_body_square.png" id="1_jpeq0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nbbyq"]
+radius = 55.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vyxo5"]
+radius = 179.137
+
+[sub_resource type="Animation" id="Animation_6nxax"]
+resource_name = "wiggle"
+length = 0.75
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BombSprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.3, 0.466667),
+"transitions": PackedFloat32Array(0.392292, 1.31951, 0.267943, 1.8025),
+"update": 0,
+"values": [-0.0250386, -0.209487, 0.0372028, 0.23927]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ky2iu"]
+_data = {
+"wiggle": SubResource("Animation_6nxax")
+}
+
+[node name="Bomb" type="StaticBody2D"]
+position = Vector2(1, -181)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_47wqr")
+
+[node name="BombSprite" type="Sprite2D" parent="."]
+rotation = 0.00232179
+texture = ExtResource("1_jpeq0")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_nbbyq")
+debug_color = Color(0.854902, 0.329412, 0.392157, 1)
+
+[node name="Hitbox" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_vyxo5")
+debug_color = Color(0.752434, 0.433996, 0.401795, 0.42)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_ky2iu")
+}
+autoplay = "wiggle"
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

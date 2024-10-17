@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://du7k5fehgk833"]
+
+[ext_resource type="Script" path="res://bullet.gd" id="1_jm2bj"]
+[ext_resource type="Texture2D" uid="uid://be1sw1sgj83it" path="res://assets/green_body_circle.png" id="2_sxla0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gorhj"]
+radius = 17.0294
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ba062"]
+
+[node name="Bullet" type="Area2D"]
+position = Vector2(1, -2)
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_jm2bj")
+
+[node name="WeaponPivot" type="Marker2D" parent="."]
+position = Vector2(0, 1)
+
+[node name="Sprite" type="Sprite2D" parent="WeaponPivot"]
+unique_name_in_owner = true
+position = Vector2(184, -0.999997)
+scale = Vector2(0.3625, 0.3625)
+texture = ExtResource("2_sxla0")
+
+[node name="ShootingPoint" type="Marker2D" parent="WeaponPivot/Sprite"]
+unique_name_in_owner = true
+position = Vector2(-7.39098e-06, 2.50001)
+
+[node name="Area2D" type="Area2D" parent="WeaponPivot"]
+position = Vector2(112, -0.999998)
+collision_mask = 3
+
+[node name="Hitbox" type="CollisionShape2D" parent="WeaponPivot/Area2D"]
+unique_name_in_owner = true
+position = Vector2(72, 0)
+shape = SubResource("CircleShape2D_gorhj")
+debug_color = Color(0.998748, 0, 0.133717, 0.42)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ba062")
+
+[connection signal="body_entered" from="WeaponPivot/Area2D" to="." method="_on_body_entered"]

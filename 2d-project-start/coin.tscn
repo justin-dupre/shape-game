@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://dlkjgm0jywlyx"]
+
+[ext_resource type="Texture2D" uid="uid://c744lgn53mpjb" path="res://assets/tile_coin.png" id="1_asjys"]
+[ext_resource type="Script" path="res://coin.gd" id="1_yef1g"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0i62b"]
+radius = 27.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yks6g"]
+radius = 27.0185
+
+[node name="Coin" type="StaticBody2D"]
+collision_layer = 0
+script = ExtResource("1_yef1g")
+
+[node name="CoinSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_asjys")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_0i62b")
+
+[node name="PickupBox" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupBox"]
+shape = SubResource("CircleShape2D_yks6g")
+
+[connection signal="body_entered" from="PickupBox" to="." method="_on_pickup_box_body_entered"]

@@ -1,0 +1,82 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbd8rhdmiaj5c"]
+
+[ext_resource type="PackedScene" uid="uid://bq6tygxfwv1ua" path="res://skill_button.tscn" id="1_s17g8"]
+
+[node name="SkillTree" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1917.0
+offset_bottom = 1080.0
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SkillButton" parent="." instance=ExtResource("1_s17g8")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 922.0
+offset_top = 560.0
+offset_right = 1002.0
+offset_bottom = 640.0
+
+[node name="SkillButton2" parent="SkillButton" instance=ExtResource("1_s17g8")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 128.0
+offset_top = -144.0
+offset_right = 208.0
+offset_bottom = -64.0
+disabled = true
+
+[node name="SkillButton4" parent="SkillButton/SkillButton2" instance=ExtResource("1_s17g8")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 166.0
+offset_top = -144.0
+offset_right = 246.0
+offset_bottom = -64.0
+disabled = true
+
+[node name="SkillButton5" parent="SkillButton/SkillButton2" instance=ExtResource("1_s17g8")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -434.0
+offset_top = -144.0
+offset_right = -354.0
+offset_bottom = -64.0
+disabled = true
+
+[node name="SkillButton6" parent="SkillButton/SkillButton2" instance=ExtResource("1_s17g8")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -130.0
+offset_top = -144.0
+offset_right = -50.0
+offset_bottom = -64.0
+disabled = true
+
+[node name="SkillButton3" parent="SkillButton" instance=ExtResource("1_s17g8")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -144.0
+offset_top = -144.0
+offset_right = -64.0
+offset_bottom = -64.0
+disabled = true

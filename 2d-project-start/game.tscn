@@ -1,0 +1,96 @@
+[gd_scene load_steps=8 format=3 uid="uid://c8ym41cvhdqkq"]
+
+[ext_resource type="PackedScene" uid="uid://be3hhl2jn8rbq" path="res://player.tscn" id="1_j1ffi"]
+[ext_resource type="Script" path="res://game.gd" id="1_pfwqg"]
+[ext_resource type="PackedScene" uid="uid://2biqxxdssvvu" path="res://game_manager.tscn" id="3_sk0t2"]
+[ext_resource type="PackedScene" uid="uid://b6l4krrb3mt0y" path="res://upgrade_menu.tscn" id="4_8tmlt"]
+[ext_resource type="Script" path="res://coins_label.gd" id="5_83xpr"]
+[ext_resource type="Texture2D" uid="uid://c744lgn53mpjb" path="res://assets/tile_coin.png" id="7_07ffs"]
+
+[sub_resource type="Curve2D" id="Curve2D_hh3ht"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -86, -103, 0, 0, 0, 0, 2009, -124, 0, 0, 0, 0, 1987, 1130, 0, 0, 0, 0, -84, 1124, 0, 0, 0, 0, -86, -103)
+}
+point_count = 5
+
+[node name="Game" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_pfwqg")
+
+[node name="GameManager" parent="." instance=ExtResource("3_sk0t2")]
+
+[node name="Menus" type="CanvasLayer" parent="."]
+
+[node name="UpgradeMenu" parent="Menus" instance=ExtResource("4_8tmlt")]
+visible = false
+
+[node name="CoinsLabel" type="Label" parent="Menus"]
+offset_left = 67.0
+offset_top = 107.0
+offset_right = 107.0
+offset_bottom = 130.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "0"
+script = ExtResource("5_83xpr")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Menus"]
+position = Vector2(53, 119)
+scale = Vector2(0.459375, 0.459375)
+texture = ExtResource("7_07ffs")
+
+[node name="Player" parent="." instance=ExtResource("1_j1ffi")]
+unique_name_in_owner = true
+position = Vector2(986, 462)
+
+[node name="Path2D" type="Path2D" parent="Player"]
+position = Vector2(-986, -462)
+curve = SubResource("Curve2D_hh3ht")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Player/Path2D"]
+unique_name_in_owner = true
+position = Vector2(-86, -103)
+rotation = -0.0100235
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="GameOver" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="GameOver"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.509804)
+
+[node name="Label" type="Label" parent="GameOver/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.5
+offset_top = -11.5
+offset_right = 43.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 150
+text = "Game Over"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -128
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+offset_left = -69.0
+offset_top = -66.0
+offset_right = 2075.0
+offset_bottom = 1138.0
+color = Color(0.152941, 0.168627, 0.188235, 1)
+
+[connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
